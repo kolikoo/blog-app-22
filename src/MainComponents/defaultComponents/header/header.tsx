@@ -8,11 +8,23 @@ import i18n from "i18next";
 import { useTranslation } from "react-i18next";
 import sunImg from "../../../images/icons8-sun.svg"
 import moonImg from "../../../images/icons8-moon-symbol-30.png";
+import { useMutation } from "@tanstack/react-query";
+import { logout } from "../../../supabase/auth/index"
+import { useAtom } from "jotai";
+import { userAtom } from "@/store/auth";
 
 
 
 const Header:React.FC=()=>{
    const { t } = useTranslation();
+
+  const [user] = useAtom(userAtom);
+
+  const {mutate:handlelogout}=useMutation({
+    mutationKey:["logout"],
+    mutationFn:logout
+  })
+
  
  const handleChangeToggle = (value: string) => {
    const html = document.querySelector("html");
@@ -105,10 +117,38 @@ return (
           </SelectContent>
         </Select>
 
-        <div className="rounded-[10px] bg-yellow-400 p-2 text-white dark:bg-blue-700 dark:text-white">
-          <NavLink to={"/LogIn"}>
-            <button>{t("Home-Page.log in")}</button>
-          </NavLink>
+        <div className="flex gap-3">
+          {user ? (
+            <>
+              <NavLink className="text-[10px]" to={"/profile"}>
+                <div className="mt-1 h-10 rounded-[100%] bg-yellow-400 p-2 text-white dark:bg-blue-700 dark:text-black ">
+                  <img
+                    src="https://api.dicebear.com/9.x/avataaars/svg"
+                    alt="avatar"
+                  />
+                  Profile
+                </div>
+              </NavLink>
+
+              <div className="mt-1 h-10 rounded-[10px] bg-yellow-400 p-2 text-white dark:bg-blue-700 dark:text-white">
+                <span
+                  className="cursor-pointer"
+                  onClick={() => {
+                    handlelogout();
+                  }}
+                >
+                  log out{" "}
+                </span>
+              </div>
+            </>
+          ) : (
+            <NavLink
+              className="rounded-[10px] bg-yellow-400 p-2 text-white dark:bg-blue-700 dark:text-white"
+              to={"/LogIn"}
+            >
+              <button>{t("Home-Page.log in")}</button>
+            </NavLink>
+          )}
         </div>
       </div>
     </div>

@@ -9,66 +9,27 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      blogs: {
-        Row: {
-          created_at: string | null
-          description_en: string
-          description_ka: string
-          id: number
-          image_url: string | null
-          title_en: string
-          title_ka: string
-          user_id: string | null
-        }
-        Insert: {
-          created_at?: string | null
-          description_en: string
-          description_ka: string
-          id?: number
-          image_url?: string | null
-          title_en: string
-          title_ka: string
-          user_id?: string | null
-        }
-        Update: {
-          created_at?: string | null
-          description_en?: string
-          description_ka?: string
-          id?: number
-          image_url?: string | null
-          title_en?: string
-          title_ka?: string
-          user_id?: string | null
-        }
-        Relationships: []
-      }
       profiles: {
         Row: {
           avatar_url: string | null
-          full_name_en: string | null
-          full_name_ka: string | null
+          full_name: string | null
           id: string
-          phone_number: string | null
           updated_at: string | null
           username: string | null
           website: string | null
         }
         Insert: {
           avatar_url?: string | null
-          full_name_en?: string | null
-          full_name_ka?: string | null
+          full_name?: string | null
           id: string
-          phone_number?: string | null
           updated_at?: string | null
           username?: string | null
           website?: string | null
         }
         Update: {
           avatar_url?: string | null
-          full_name_en?: string | null
-          full_name_ka?: string | null
+          full_name?: string | null
           id?: string
-          phone_number?: string | null
           updated_at?: string | null
           username?: string | null
           website?: string | null

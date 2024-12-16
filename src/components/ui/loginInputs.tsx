@@ -2,42 +2,43 @@ import * as React from "react";
 import { Input } from "@/components/ui/input"; // დარწმუნდით, რომ ფაილის გზა სწორია.
 import { Button } from "@/components/ui/button"; // შეცვალეთ რეალური გზით, თუ საჭიროა.
 import { useState } from "react";
-import { register } from "../../supabase/auth";
-import { useMutation } from "@tanstack/react-query"
+import { login,  } from "../../supabase/auth";
+import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
-const RegisterForm: React.FC = () => {
-  const [registerPayload, setRegisterPayload] = useState({
-    email: "",
-    password: "",
-  });
+const LoginInput: React.FC = () => {
+  const [loginPayload, setLoginPayload] = useState({ email: "", password: "" });
+const navigate = useNavigate()
 
-  const { mutate: handleRegister } = useMutation({
-    mutationKey: ["register"],
-    mutationFn: register,
+  const { mutate: handleLogin ,error,isError} = useMutation({
+    mutationKey: ["login"],
+    mutationFn: login,
+    onSuccess:()=>{
+     navigate("/")
+    }
   });
 
   const handleSubmit = (e:React.FormEvent) => {
-e.preventDefault()
-
-    if (!!registerPayload.email && !!registerPayload.password) {
-      handleRegister(registerPayload);
+   e.preventDefault()
+    if (!!loginPayload.email && !!loginPayload.password) {
+      handleLogin(loginPayload);
     }
   };
+ console.log(error,isError)
 
   return (
     <form
-    onSubmit={handleSubmit}
-      
+      onSubmit={handleSubmit}
       className="m-auto flex w-full max-w-sm flex-col justify-start gap-4 space-x-2 dark:bg-black dark:text-black"
     >
-      <div className="ml-2 w-[98%] dark:text-white">
+      <div className="ml-2 w-[98%] dark:text-white dark:bg-black">
         <label htmlFor="email">Email</label>
         <Input
-          value={registerPayload.email}
+          value={loginPayload.email}
           onChange={(e) => {
-            setRegisterPayload({
+            setLoginPayload({
               email: e.target.value,
-              password: registerPayload.password,
+              password: loginPayload.password,
             });
           }}
           name="email"
@@ -50,13 +51,13 @@ e.preventDefault()
       <div className="dark:text-white">
         <label htmlFor="password">Password</label>
         <Input
-          value={registerPayload.password}
-          onChange={(e) => {
-            setRegisterPayload({
-              password: e.target.value,
-              email: registerPayload.email,
-            });
-          }}
+        value={loginPayload.password}
+        onChange={(e)=>{
+        setLoginPayload({
+         email:loginPayload.email,
+         password:e.target.value
+        })
+        }}
           name="password"
           className="w-[100%]"
           type="password"
@@ -70,12 +71,10 @@ e.preventDefault()
         className="w-[100%] dark:bg-blue-700 dark:text-white"
         type="submit"
       >
-        Register
+        Log In
       </Button>
     </form>
   );
 };
 
-export default RegisterForm;
-
-
+export default LoginInput;

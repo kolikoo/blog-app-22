@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
    
   return (
     <div className="text-white w-[100%] h-[400px] bg-white p-[32px] rounded-xl border-white-600 border-solid 
-    border-[2px] dark:bg-black dark:border-blue-950  dark:border-solid ">
+    border-[2px] dark:bg-black dark:border-blue-950  dark:border-solid mr-36" >
       <img
         className="rounded-xl	 w-[95%] h-[50%] bg-cover"
         src={uknownImg}

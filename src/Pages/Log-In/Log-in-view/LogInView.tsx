@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import InputWithButton  from "../../../components/ui/input";
 import { useTranslation } from "react-i18next";
+import LoginInput from "@/components/ui/loginInputs";
 
 
 
@@ -17,16 +18,19 @@ const LogInView:React.FC=()=>{
        </div>
 
        <div className="signInputs">
-         <InputWithButton />
+         <LoginInput />
        </div>
 
-       <div className="signcardFooter flex justify-between w-[100%]">
+       <div className="signcardFooter flex w-[100%] justify-between">
          <p className="text-blue-600">{t("LogIn-Page.Forgot Password")}</p>
 
          <p className="text-[12px]">
            {t("LogIn-Page.Don't have an account")}
            <span>
-             <NavLink className="text-blue-600 text-[12px]" to={"/Login/registration"}>
+             <NavLink
+               className="text-[12px] text-blue-600"
+               to={"/Login/registration"}
+             >
                {t("LogIn-Page.sign up")}
              </NavLink>
            </span>
